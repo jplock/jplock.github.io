@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Allow access through access point",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:DeleteObject*",
+                "s3:GetObject*",
+                "s3:ListBucket",
+                "s3:ListMultipartUploadParts",
+                "s3:PutObject*",
+                "s3:RestoreObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:us-east-1:000000000000:accesspoint/my-access-point/object/*",
+                "arn:aws:s3:us-east-1:000000000000:accesspoint/my-access-point"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalOrgId": "o-0000000000"
+                }
+            }
+        }
+    ]
+}

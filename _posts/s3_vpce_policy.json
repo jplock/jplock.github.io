@@ -1,0 +1,43 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Allow account-owned access points",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:us-east-1:000000000000:accesspoint/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:AccessPointNetworkOrigin": "VPC",
+                    "aws:PrincipalOrgId": "o-0000000000",
+                    "s3:DataAccessPointAccount": "000000000000"
+                }
+            }
+        },
+        {
+            "Sid": "Access to approved public buckets",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::aws-ssm-us-east-1/*",
+                "arn:aws:s3:::aws-windows-downloads-us-east-1/*",
+                "arn:aws:s3:::amazon-ssm-us-east-1/*",
+                "arn:aws:s3:::amazon-ssm-packages-us-east-1/*",
+                "arn:aws:s3:::us-east-1-birdwatcher-prod/*",
+                "arn:aws:s3:::aws-ssm-document-attachments-us-east-1/*",
+                "arn:aws:s3:::patch-baseline-snapshot-us-east-1/*",
+                "arn:aws:s3:::packages.us-east-1.amazonaws.com/*",
+                "arn:aws:s3:::repo.us-east-1.amazonaws.com/*",
+                "arn:aws:s3:::amazonlinux.us-east-1.amazonaws.com/*",
+                "arn:aws:s3:::us-east-1.elasticmapreduce/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:PrincipalOrgId": "o-0000000000"
+                }
+            }
+        }
+    ]
+}
